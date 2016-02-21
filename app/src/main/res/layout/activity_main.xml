@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/twitter_gradient_bg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--<ImageView-->
+            <!--android:src="@drawable/capitalone_logo_2x_oasis"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="150dp"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ems="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="X"-->
+            <!--android:textSize="50sp"/>-->
+
+        <ImageView
+            android:id="@+id/twitter_logo_main"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:transitionName="@string/twitter_logo_transition"
+            android:src="@drawable/twitter_logo_white"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Enter hashtag(s) to start streaming!"
+        android:textColor="@color/text_color"
+        android:textSize="24sp"/>
+
+    <EditText
+        android:id="@+id/query_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:hint="ex. #nex_cafes"
+        android:maxLength="20"
+        android:singleLine="true"
+        android:textColorHint="#607D8B"
+        android:textSize="18sp"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/start_query_button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:elevation="10dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:background="@drawable/circle_go_button"
+        android:text="Start"/>
+
+</LinearLayout>
+
