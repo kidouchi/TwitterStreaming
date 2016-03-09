@@ -1,4 +1,2 @@
 # TwitterStreaming
-An app where you can view a stream of tweets
-
-An experimentation on animations
+An app where you can view a stream of tweets/experimentation on animations
