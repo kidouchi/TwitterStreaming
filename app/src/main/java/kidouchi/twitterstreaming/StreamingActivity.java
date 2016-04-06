@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +37,8 @@ public class StreamingActivity extends Activity {
     private String mQuery;
 
     private TextView mHashtagTitle;
+    private ImageView mTwitterLogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +49,34 @@ public class StreamingActivity extends Activity {
         setContentView(R.layout.activity_streaming);
 
         mHashtagTitle = (TextView) findViewById(R.id.hashtag_title);
+        mTwitterLogo = (ImageView) findViewById(R.id.twitter_logo_stream);
+
+        // TODO: Check query from right activities
         mQuery = getIntent().getStringExtra("query");
         mHashtagTitle.setText("Tweet out to " + mQuery);
 
+        final Animation birdDance = AnimationUtils.loadAnimation(this, R.anim.bird_dancing);
+        Log.d("I'M HERE", birdDance.hasStarted() + "");
+        birdDance.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                birdDance.setAnimationListener(this);
+                mTwitterLogo.startAnimation(birdDance);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mTwitterLogo.startAnimation(birdDance);
+
+        // Go to individual view of tweets
         View view = findViewById(android.R.id.content).getRootView();
         view.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override

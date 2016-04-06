@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-     android:duration="1000">
+     android:shareInterpolator="true"
+     android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+     android:repeatMode="restart"
+     android:repeatCount="infinite">
 
     <rotate
-        android:interpolator="@android:anim/bounce_interpolator"
         android:fromDegrees="0"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:repeatCount="infinite"
-        android:toDegrees="-90"/>
+        android:toDegrees="-25"
+        android:duration="700"
+        android:fillAfter="false"/>
 
     <rotate
-        android:interpolator="@android:anim/bounce_interpolator"
-        android:fromDegrees="-90"
+        android:fromDegrees="-25"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:repeatCount="infinite"
-        android:toDegrees="90"/>
+        android:toDegrees="25"
+        android:startOffset="700"
+        android:duration="700"
+        android:fillAfter="false"/>
+
+    <rotate
+        android:fromDegrees="25"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toDegrees="0"
+        android:duration="700"
+        android:startOffset="1400"
+        android:fillAfter="false"/>
+
+    <!--<rotate-->
+        <!--android:fromDegrees="-45"-->
+        <!--android:pivotX="50%"-->
+        <!--android:pivotY="50%"-->
+        <!--android:toDegrees="0"-->
+        <!--android:duration="700"-->
+        <!--android:startOffset="2100"-->
+        <!--android:fillAfter="false"/>-->
 
 </set>

@@ -20,9 +20,10 @@
 
     <com.twitter.sdk.android.core.identity.TwitterLoginButton
         android:id="@+id/twitter_login_button"
-        android:layout_marginTop="24dp"
+        android:text="Log In"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_centerInParent="true"/>
 
 </LinearLayout>

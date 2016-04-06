@@ -19,8 +19,8 @@ import io.fabric.sdk.android.Fabric;
 public class LoginActivity extends Activity {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "UPIPicM70UMOPuwny9M72xqeo ";
-    private static final String TWITTER_SECRET = "lcOAH9INxCbOG1WguHqdIE1cTNah3y4wStkowpWU92LjY9oLas ";
+    private static final String TWITTER_KEY = "UPIPicM70UMOPuwny9M72xqeo";
+    private static final String TWITTER_SECRET = "lcOAH9INxCbOG1WguHqdIE1cTNah3y4wStkowpWU92LjY9oLas";
 
 
     private TwitterLoginButton mLoginButton;

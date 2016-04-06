@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:hint="ex. #nex_cafes"
-        android:maxLength="20"
+        android:maxLength="40"
         android:singleLine="true"
         android:textColorHint="#607D8B"
         android:textSize="18sp"/>
