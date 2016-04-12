@@ -60,7 +60,6 @@ public class TweetViewActivity extends AppCompatActivity {
         mHashtagTextView.setText("Tweet to " + mQuery);
 
         final Animation birdDance = AnimationUtils.loadAnimation(this, R.anim.bird_dancing);
-        Log.d("I'M HERE", birdDance.hasStarted() + "");
         birdDance.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -118,7 +117,8 @@ public class TweetViewActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(TwitterException e) {
-                        e.printStackTrace();
+                        Toast.makeText(TweetViewActivity.this,
+                                "Failure to connect to Twitter", Toast.LENGTH_LONG).show();
                     }
                 });
                 mHandler.postDelayed(mRun, 1000);
@@ -130,6 +130,7 @@ public class TweetViewActivity extends AppCompatActivity {
 
                 for (String s : matches) {
                     if (tweet.text.contains(s)) {
+                        Log.d("MATCHED", tweet.text);
                         mCapOneAds.setImageDrawable(getDrawable(adsMap.get(s)));
                         mCapOneAds.startAnimation(fadeIn);
                     }
@@ -153,7 +154,9 @@ public class TweetViewActivity extends AppCompatActivity {
         adsMap.put("card", R.drawable.quicksilver);
         adsMap.put("quicksilver", R.drawable.quicksilver);
         adsMap.put("mortgage", R.drawable.mortgage);
-        matches = (String[]) adsMap.keySet().toArray();
+        matches = new String[adsMap.keySet().size()];
+        adsMap.keySet().toArray(matches);
+        Log.d("MATCHES", matches.length + "");
     }
 
     @Override

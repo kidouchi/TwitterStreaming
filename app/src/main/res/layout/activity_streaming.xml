@@ -1,63 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/twitter_gradient_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/twitter_gradient_bg"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="kidouchi.twitterstreaming.StreamingActivity">
 
     <LinearLayout
+        android:id="@+id/twitter_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="3">
-        <!--<Button-->
-            <!--android:id="@+id/start_refresh_button"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Start"-->
-            <!--android:onClick="startRefreshing"-->
-            <!--/>-->
 
         <ImageView
             android:id="@+id/twitter_logo_stream"
-            android:layout_weight="1"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_weight="1"
             android:src="@drawable/twitter_logo_white"
             android:transitionName="@string/twitter_logo_transition"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/stop_refresh_button"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Stop"-->
-            <!--android:onClick="stopRefreshing"-->
-        
-            <!--/>-->
+        <TextView
+            android:id="@+id/hashtag_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="24sp"
+            tools:text="Tweet to #Cafe"/>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/hashtag_title"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textColor="@color/text_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Tweet to #Cafe"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/shared_white_circle"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:background="@drawable/circle_white_solid"-->
+        <!--android:transitionName="white_circle_reveal"/>-->
 
     <ListView
-        android:layout_marginTop="10dp"
         android:id="@+id/list_stream"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/twitter_header"
+        android:layout_marginTop="10dp"/>
 
-</LinearLayout>
+</RelativeLayout>

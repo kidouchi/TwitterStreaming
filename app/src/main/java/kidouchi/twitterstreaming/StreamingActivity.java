@@ -27,8 +27,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class StreamingActivity extends Activity {
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "3N6v5WACB2ve8oUYi50ZpFzKt ";
-    private static final String TWITTER_SECRET = "xDV0VX1SpnglmD1i7MTsB4r9LVOrwOiiXGH8dBEGgdBrLBlW52 ";
+    private static final String TWITTER_KEY = "3N6v5WACB2ve8oUYi50ZpFzKt";
+    private static final String TWITTER_SECRET = "xDV0VX1SpnglmD1i7MTsB4r9LVOrwOiiXGH8dBEGgdBrLBlW52";
 
     private Handler mHandler;
     private TweetTimelineListAdapter mAdapter;
@@ -55,6 +55,7 @@ public class StreamingActivity extends Activity {
         mQuery = getIntent().getStringExtra("query");
         mHashtagTitle.setText("Tweet out to " + mQuery);
 
+        // Animation the twitter bird
         final Animation birdDance = AnimationUtils.loadAnimation(this, R.anim.bird_dancing);
         Log.d("I'M HERE", birdDance.hasStarted() + "");
         birdDance.setAnimationListener(new Animation.AnimationListener() {
@@ -89,10 +90,25 @@ public class StreamingActivity extends Activity {
         });
 
         final SearchTimeline timeline = new SearchTimeline.Builder()
+                .maxItemsPerRequest(10)
+                .languageCode("en")
                 .query(mQuery)
                 .build();
 
+        /** TWITTER TIMELINE **/
         mAdapter = new TweetTimelineListAdapter.Builder(this)
+                .setOnActionCallback(new Callback<Tweet>() {
+                    @Override
+                    public void success(Result<Tweet> result) {
+
+                    }
+
+                    @Override
+                    public void failure(TwitterException e) {
+                        Toast.makeText(StreamingActivity.this,
+                                "Failure to connect to Twitter", Toast.LENGTH_LONG).show();
+                    }
+                })
                 .setTimeline(timeline)
                 .build();
 
@@ -130,14 +146,7 @@ public class StreamingActivity extends Activity {
     @Override
     protected void onStop() {
         mHandler.removeCallbacks(mRefresh);
+        finishAfterTransition();
         super.onStop();
     }
-
-    //    public void startRefreshing(View v) {
-//        mRefresh.run();
-//    }
-//
-//    public void stopRefreshing(View v) {
-//        mHandler.removeCallbacks(mRefresh);
-//    }
 }

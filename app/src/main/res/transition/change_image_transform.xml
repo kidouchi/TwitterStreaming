@@ -2,9 +2,9 @@
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
                android:duration="700"
                android:interpolator="@android:interpolator/accelerate_decelerate"
-               android:transitionOrdering="together">
-    <fade android:fadingMode="fade_in"/>
+               android:transitionOrdering="sequential">
+    <!--<fade android:fadingMode="fade_in"/>-->
     <changeBounds/>
     <changeImageTransform/>
-    <fade android:fadingMode="fade_out"/>
+    <!--<fade android:fadingMode="fade_out"/>-->
 </transitionSet>

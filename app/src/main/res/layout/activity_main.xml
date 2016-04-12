@@ -20,24 +20,24 @@
         android:orientation="horizontal">
 
         <!--<ImageView-->
-            <!--android:src="@drawable/capitalone_logo_2x_oasis"-->
-            <!--android:layout_width="150dp"-->
-            <!--android:layout_height="150dp"/>-->
+        <!--android:src="@drawable/capitalone_logo_2x_oasis"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="150dp"/>-->
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ems="1"-->
-            <!--android:gravity="center"-->
-            <!--android:text="X"-->
-            <!--android:textSize="50sp"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:ems="1"-->
+        <!--android:gravity="center"-->
+        <!--android:text="X"-->
+        <!--android:textSize="50sp"/>-->
 
         <ImageView
             android:id="@+id/twitter_logo_main"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:transitionName="@string/twitter_logo_transition"
-            android:src="@drawable/twitter_logo_white"/>
+            android:src="@drawable/twitter_logo_white"
+            android:transitionName="@string/twitter_logo_transition"/>
     </LinearLayout>
 
     <TextView
@@ -60,16 +60,28 @@
         android:textColorHint="#607D8B"
         android:textSize="18sp"/>
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/start_query_button"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:elevation="10dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:background="@drawable/circle_go_button"
-        android:text="Start"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/shared_white_circle"
+            android:transitionName="white_circle_reveal"
+            android:background="@drawable/circle_white_solid"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="invisible"
+            android:layout_alignBottom="@+id/start_query_button"/>
+        <Button
+            android:id="@+id/start_query_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_white_transparent"
+            android:elevation="10dp"
+            android:text="Start"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
 
 </LinearLayout>
 
