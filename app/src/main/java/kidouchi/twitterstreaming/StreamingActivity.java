@@ -1,7 +1,9 @@
 package kidouchi.twitterstreaming;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,6 +26,10 @@ import com.twitter.sdk.android.tweetui.TimelineResult;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 import io.fabric.sdk.android.Fabric;
+import kidouchi.twitterstreaming.instagram.InstagramApi;
+import kidouchi.twitterstreaming.instagram.InstagramServiceInterface;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StreamingActivity extends Activity {
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
@@ -33,9 +39,26 @@ public class StreamingActivity extends Activity {
     private Handler mHandler;
     private TweetTimelineListAdapter mAdapter;
     private int mInterval = 10000;
+    Runnable mRefresh = new Runnable() {
+        @Override
+        public void run() {
+            mAdapter.refresh(new Callback<TimelineResult<Tweet>>() {
+                @Override
+                public void success(Result<TimelineResult<Tweet>> result) {
+                    Log.d("DEBUG", result.response.toString());
+                }
 
+                @Override
+                public void failure(TwitterException exception) {
+                    // Toast or some other action
+                    Toast.makeText(StreamingActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            mHandler.postDelayed(mRefresh, mInterval);
+        }
+    };
+    private Retrofit mRetrofit;
     private String mQuery;
-
     private TextView mHashtagTitle;
     private ImageView mTwitterLogo;
 
@@ -48,6 +71,18 @@ public class StreamingActivity extends Activity {
 
         setContentView(R.layout.activity_streaming);
 
+        SharedPreferences prefs = getSharedPreferences("kidouchi", Context.MODE_PRIVATE);
+        String test = prefs.getString("accessToken", "");
+        Log.d("INSTAGRAM", test);
+
+        // Setup retrofit
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(InstagramApi.API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        InstagramServiceInterface instagramService = mRetrofit.create(InstagramServiceInterface.class);
+
         mHashtagTitle = (TextView) findViewById(R.id.hashtag_title);
         mTwitterLogo = (ImageView) findViewById(R.id.twitter_logo_stream);
 
@@ -55,9 +90,10 @@ public class StreamingActivity extends Activity {
         mQuery = getIntent().getStringExtra("query");
         mHashtagTitle.setText("Tweet out to " + mQuery);
 
+//        instagramService.search(mQuery, )
+
         // Animation the twitter bird
         final Animation birdDance = AnimationUtils.loadAnimation(this, R.anim.bird_dancing);
-        Log.d("I'M HERE", birdDance.hasStarted() + "");
         birdDance.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -117,25 +153,6 @@ public class StreamingActivity extends Activity {
 
         mHandler = new Handler();
     }
-
-    Runnable mRefresh = new Runnable() {
-        @Override
-        public void run() {
-            mAdapter.refresh(new Callback<TimelineResult<Tweet>>() {
-                @Override
-                public void success(Result<TimelineResult<Tweet>> result) {
-                    Log.d("DEBUG", result.response.toString());
-                }
-
-                @Override
-                public void failure(TwitterException exception) {
-                    // Toast or some other action
-                    Toast.makeText(StreamingActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-            mHandler.postDelayed(mRefresh, mInterval);
-        }
-    };
 
     @Override
     protected void onStart() {

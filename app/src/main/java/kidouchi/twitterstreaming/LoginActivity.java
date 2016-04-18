@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.twitter.sdk.android.Twitter;
@@ -15,6 +17,8 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import io.fabric.sdk.android.Fabric;
+import kidouchi.twitterstreaming.instagram.AuthWebViewClient;
+import kidouchi.twitterstreaming.instagram.InstagramApi;
 
 public class LoginActivity extends Activity {
 
@@ -22,8 +26,8 @@ public class LoginActivity extends Activity {
     private static final String TWITTER_KEY = "UPIPicM70UMOPuwny9M72xqeo";
     private static final String TWITTER_SECRET = "lcOAH9INxCbOG1WguHqdIE1cTNah3y4wStkowpWU92LjY9oLas";
 
-
     private TwitterLoginButton mLoginButton;
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class LoginActivity extends Activity {
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.activity_login);
+
+        openInstagramLoginWebView();
 
         mLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
         mLoginButton.setCallback(new Callback<TwitterSession>() {
@@ -55,9 +61,23 @@ public class LoginActivity extends Activity {
 
     }
 
+    public void openInstagramLoginWebView() {
+        mWebView = (WebView) findViewById(R.id.instagram_login_web_view);
+        mWebView.setVerticalScrollBarEnabled(false);
+        mWebView.setHorizontalScrollBarEnabled(false);
+        mWebView.setWebViewClient(new AuthWebViewClient(this));
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl(InstagramApi.authURLString);
+    }
+
     @Override
-    public void finish() {
-        super.finish();
+    protected void onDestroy() {
+        ViewGroup viewGroup = (ViewGroup) mWebView.getParent();
+        if(null != viewGroup){
+            viewGroup.removeView(mWebView);
+        }
+        super.onDestroy();
     }
 
     @Override

@@ -19,7 +19,8 @@
             android:name="io.fabric.ApiKey"
             android:value="e3eb7dd09465ac172810e884321a52a4065ba819"/>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+            android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

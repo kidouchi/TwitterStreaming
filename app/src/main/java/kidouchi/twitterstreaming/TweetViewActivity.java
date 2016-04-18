@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -106,6 +107,7 @@ public class TweetViewActivity extends AppCompatActivity {
             // Fill up queue with tweets
             Toast.makeText(TweetViewActivity.this, "Queue Size: " + mQueue.size(),
                     Toast.LENGTH_LONG).show();
+            mCapOneAds.setVisibility(View.GONE);
             if (mQueue.size() == 0) {
                 mSearchTimeline.next(previousTweetId, new Callback<TimelineResult<Tweet>>() {
                     @Override
@@ -131,8 +133,12 @@ public class TweetViewActivity extends AppCompatActivity {
                 for (String s : matches) {
                     if (tweet.text.contains(s)) {
                         Log.d("MATCHED", tweet.text);
-                        mCapOneAds.setImageDrawable(getDrawable(adsMap.get(s)));
+                        mCapOneAds.setVisibility(View.VISIBLE);
+                        Glide.with(TweetViewActivity.this)
+                                .load(adsMap.get(s))
+                                .into(mCapOneAds);
                         mCapOneAds.startAnimation(fadeIn);
+                        break;
                     }
                 }
                 // Update the most previous tweet seen
